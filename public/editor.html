@@ -5,8 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MD Editor V3 Web Component</title>
   <script type="module" src="main.js"></script>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
 </head>
 <body>
-  <md-editor-v3 id="editor" text="# Hello World"></md-editor-v3>
+  <md-editor-v3 id="editor" text="# Hello World" style="height: 100%;"></md-editor-v3>
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', async () => {
+      const editor = document.getElementById('editor');
+      const res = await fetch('data.md');
+      const text = await res.text();
+      editor.setAttribute('text', text);
+    })
+  </script>
 </body>
 </html>
