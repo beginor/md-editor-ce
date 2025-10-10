@@ -1,23 +1,49 @@
 <template>
-  <MdEditor v-model="text" />
+  <MdEditor v-model="text" :toolbars="toolbars" @save="handleSave" @input="handleInput" @blur="handleBlur" @focus="handleFocus" />
 </template>
 
-<script setup>
-import { ref, watch } from 'vue';
-import { MdEditor } from 'md-editor-v3';
+<script setup lang="ts">
+import { MdEditor, type ToolbarNames } from 'md-editor-v3';
+import { computed } from 'vue';
 
-const props = defineProps({
-  text: { type: String, default: '' }
+// 使用 defineModel 定义双向绑定，默认 emit 事件为 'update:text' , angular 应该用不了
+const text = defineModel('text', {
+  type: String,
+  default: '',
 });
 
-const text = ref(props.text);
-const getText = () => text.value;
+// setAttribute 只能字符串
+const props = defineProps<{
+  toolbars?: string;
+}>();
 
-watch(() => props.text, (val) => {
-  text.value = val;
+const toolbars = computed(() => {
+  return props.toolbars?.split(',') as ToolbarNames[];
 });
 
-defineExpose({ getText: getText });
+// emit 其他
+const emit = defineEmits<{
+  onSave: [value: string];
+  onBlur: [value: string]; // [event: FocusEvent];
+  onFocus: [value: string];
+  onInput: [value: string];
+}>();
+
+function handleInput() {
+  emit('onInput', text.value);
+}
+
+function handleSave() {
+  emit('onSave', text.value);
+}
+
+function handleBlur() {
+  emit('onBlur', text.value);
+}
+
+function handleFocus() {
+  emit('onFocus', text.value);
+}
 </script>
 
 <style lang="css">
@@ -25,4 +51,8 @@ defineExpose({ getText: getText });
 @import 'highlight.js/styles/atom-one-dark.css';
 @import 'katex/dist/katex.min.css';
 @import './iconfont.css';
+
+.md-editor-preview .md-editor-code .md-editor-code-head {
+  z-index: 999;
+}
 </style>
