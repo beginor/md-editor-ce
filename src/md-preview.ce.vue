@@ -4,15 +4,11 @@
 
 <script setup>
 import { ref, watch } from 'vue';
-import { MdPreview, config } from 'md-editor-v3';
+import { MdPreview } from 'md-editor-v3';
 
-
-// 定义 props
 const props = defineProps({
   text: { type: String, default: '' }
 });
-
-
 
 const text = ref(props.text);
 

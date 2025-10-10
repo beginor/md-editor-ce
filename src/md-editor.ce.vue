@@ -3,7 +3,6 @@
 </template>
 
 <script setup>
-
 import { ref, watch } from 'vue';
 import { MdEditor } from 'md-editor-v3';
 
