@@ -15,7 +15,8 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                'main': 'src/main.ts'
+                'editor': 'src/editor.ts',
+                'preview': 'src/preview.ts',
             },
             output: {
                 format: 'esm',

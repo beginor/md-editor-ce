@@ -4,9 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MD Editor V3 Web Component</title>
-  <script type="module" src="main.js"></script>
+  <script type="module" src="preview.js"></script>
 </head>
 <body>
   <md-preview-v3 id="preview" text="# Hello, world!"></md-preview-v3>
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', async () => {
+      const preview = document.getElementById('preview');
+      const res = await fetch('data.md');
+      const text = await res.text();
+      preview.setAttribute('text', text);
+    })
+  </script>
 </body>
 </html>
