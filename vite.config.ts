@@ -15,4 +15,15 @@ export default defineConfig({
     esbuild: {
         legalComments: 'none' // 移除所有注释，包括 license
     },
+    build: {
+        rollupOptions: {
+            input: {
+                'main': 'src/main.ts'
+            },
+            output: {
+                format: 'iife',
+                entryFileNames: "[name].js"
+            }
+        }
+    }
 })
