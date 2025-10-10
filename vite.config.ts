@@ -21,7 +21,7 @@ export default defineConfig({
                 'main': 'src/main.ts'
             },
             output: {
-                format: 'iife',
+                format: 'esm',
                 entryFileNames: "[name].js"
             }
         }
