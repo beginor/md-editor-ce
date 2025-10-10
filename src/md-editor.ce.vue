@@ -11,10 +11,13 @@ const props = defineProps({
 });
 
 const text = ref(props.text);
+const getText = () => text.value;
 
 watch(() => props.text, (val) => {
   text.value = val;
 });
+
+defineExpose({ getText: getText });
 </script>
 
 <style lang="css">
