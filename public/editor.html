@@ -16,27 +16,17 @@
   </style>
 </head>
 <body>
-  <md-editor-v3 id="editor" text="# Hello World" style="height: 70%;"></md-editor-v3>
-  <div style="padding: 12px; height: 30%; box-sizing: border-box;">
-    <button id="show-markdown">获取当前 Markdown</button>
-    <pre id="markdown-output" style="margin-top: 12px; height: calc(100% - 48px); overflow: auto; background: #1e1e1e; color: #d4d4d4; padding: 12px; border-radius: 6px;"></pre>
-  </div>
+  <md-editor-v3 id="editor1" text="# Hello World" style="height: 100%;"></md-editor-v3>
   <script type="module">
     document.addEventListener('DOMContentLoaded', async () => {
-      const editor = document.getElementById('editor');
-      await customElements.whenDefined('md-editor-v3'); // 等待组件注册完成后再调用实例方法
+      const editor = document.getElementById('editor1');
+
+      // 等待组件注册完成后再调用实例方法
+      // await customElements.whenDefined('md-editor-v3');
 
       const res = await fetch('data.md');
       const text = await res.text();
       editor.setAttribute('text', text);
-
-      const button = document.getElementById('show-markdown');
-      const output = document.getElementById('markdown-output');
-
-      button.addEventListener('click', () => {
-        const markdown = editor.getText();
-        output.textContent = markdown;
-      });
     })
   </script>
 </body>

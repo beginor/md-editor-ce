@@ -1,24 +1,26 @@
 <template>
-  <MdEditor v-model="text" :toolbars="toolbars" @save="handleSave" @input="handleInput" @blur="handleBlur" @focus="handleFocus" />
+  <MdEditor :id="editorId" v-model="text" :toolbars="toolbars" @save="handleSave"
+    @input="handleInput" @blur="handleBlur" @focus="handleFocus">
+  </MdEditor>
 </template>
 
 <script setup lang="ts">
-import { MdEditor, type ToolbarNames } from 'md-editor-v3';
 import { computed } from 'vue';
+import { MdEditor, type ToolbarNames } from 'md-editor-v3';
 
-// 使用 defineModel 定义双向绑定，默认 emit 事件为 'update:text' , angular 应该用不了
-const text = defineModel('text', {
-  type: String,
-  default: '',
-});
+const text = defineModel<string>('text', { default: '' });
 
-// setAttribute 只能字符串
-const props = defineProps<{
-  toolbars?: string;
-}>();
+const props = defineProps<{ toolbars?: string; id?: string; }>();
 
 const toolbars = computed(() => {
   return props.toolbars?.split(',') as ToolbarNames[];
+});
+
+const editorId = computed(() => {
+    if (props.id) {
+        return props.id;
+    }
+    return `editor-${Date.now().toString(16)}-${Math.random().toString(16).substring(2)}`;
 });
 
 // emit 其他
@@ -53,6 +55,6 @@ function handleFocus() {
 @import './iconfont.css';
 
 .md-editor-preview .md-editor-code .md-editor-code-head {
-  z-index: 999;
+  z-index: 999 !important;
 }
 </style>
