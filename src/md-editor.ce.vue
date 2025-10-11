@@ -50,7 +50,7 @@ function handleFocus() {
 
 <style lang="css">
 @import 'md-editor-v3/lib/style.css';
-@import 'highlight.js/styles/atom-one-dark.css';
+@import 'highlight.js/styles/github-dark.css';
 @import 'katex/dist/katex.min.css';
 @import './iconfont.css';
 
