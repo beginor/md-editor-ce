@@ -25,26 +25,26 @@ const editorId = computed(() => {
 
 // emit 其他
 const emit = defineEmits<{
-  onSave: [value: string];
-  onBlur: [value: string]; // [event: FocusEvent];
-  onFocus: [value: string];
-  onInput: [value: string];
+  save: [value: string, Promise<string>];
+  blur: [value: string]; // [event: FocusEvent];
+  focus: [value: string];
+  editorInput: [value: string];
 }>();
 
 function handleInput() {
-  emit('onInput', text.value);
+  emit('editorInput', text.value);
 }
 
-function handleSave() {
-  emit('onSave', text.value);
+function handleSave(text: string, promise: Promise<string>): void {
+  emit('save', text, promise);
 }
 
 function handleBlur() {
-  emit('onBlur', text.value);
+  emit('blur', text.value);
 }
 
 function handleFocus() {
-  emit('onFocus', text.value);
+  emit('focus', text.value);
 }
 </script>
 

@@ -22,12 +22,24 @@
       const editor = document.getElementById('editor1');
 
       // 等待组件注册完成后再调用实例方法
-      // await customElements.whenDefined('md-editor-v3');
+      await customElements.whenDefined('md-editor-v3');
+
+      editor.addEventListener('save', e => {
+        const [text, promise] = e.detail;
+        console.log(text);
+        promise.then(html => {
+          console.log(html);
+        });
+      });
+
+      editor.addEventListener('editorInput', e => {
+        console.log(e);
+      })
 
       const res = await fetch('data.md');
       const text = await res.text();
       editor.setAttribute('text', text);
-    })
+    });
   </script>
 </body>
 </html>
