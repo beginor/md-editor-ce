@@ -25,9 +25,9 @@ const editorId = computed(() => {
 
 // emit 其他
 const emit = defineEmits<{
-  save: [value: string, Promise<string>];
-  blur: [value: string]; // [event: FocusEvent];
-  focus: [value: string];
+  editorSave: [value: string, Promise<string>];
+  editorBlur: [value: string]; // [event: FocusEvent];
+  editorFocus: [value: string];
   editorInput: [value: string];
 }>();
 
@@ -36,15 +36,15 @@ function handleInput() {
 }
 
 function handleSave(text: string, promise: Promise<string>): void {
-  emit('save', text, promise);
+  emit('editorSave', text, promise);
 }
 
 function handleBlur() {
-  emit('blur', text.value);
+  emit('editorBlur', text.value);
 }
 
 function handleFocus() {
-  emit('focus', text.value);
+  emit('editorFocus', text.value);
 }
 </script>
 
