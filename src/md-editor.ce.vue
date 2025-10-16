@@ -1,14 +1,16 @@
 <template>
-  <MdEditor :id="editorId" v-model="text" :toolbars="toolbars" @save="handleSave"
+  <MdEditor ref="editorRef" :id="editorId" v-model="text" :toolbars="toolbars" @save="handleSave"
     @input="handleInput" @blur="handleBlur" @focus="handleFocus">
   </MdEditor>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { MdEditor, type ToolbarNames } from 'md-editor-v3';
 
 const text = defineModel<string>('text', { default: '' });
+
+const editorRef = ref<InstanceType<typeof MdEditor>>();
 
 const props = defineProps<{ toolbars?: string; id?: string; }>();
 
@@ -46,6 +48,14 @@ function handleBlur() {
 function handleFocus() {
   emit('editorFocus', text.value);
 }
+
+function getEditorInstance() {
+  return editorRef.value;
+}
+
+defineExpose({
+  getEditorInstance
+});
 </script>
 
 <style lang="css">

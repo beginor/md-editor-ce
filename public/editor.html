@@ -24,6 +24,11 @@
       // 等待组件注册完成后再调用实例方法
       await customElements.whenDefined('md-editor-v3');
 
+      // const instance = editor.getEditorInstance();
+      // if (instance) {
+      //   instance.triggerSave();
+      // }
+
       editor.addEventListener('editorSave', e => {
         const [text, promise] = e.detail;
         console.log(text);
