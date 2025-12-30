@@ -1,6 +1,6 @@
 <template>
   <MdEditor ref="editorRef" :id="editorId" v-model="text" :toolbars="toolbars" @save="handleSave"
-    @input="handleInput" @blur="handleBlur" @focus="handleFocus">
+    @input="handleInput" @blur="handleBlur" @focus="handleFocus" @html-changed="handleHtmlChanged">
   </MdEditor>
 </template>
 
@@ -31,11 +31,25 @@ const emit = defineEmits<{
   editorBlur: [value: string]; // [event: FocusEvent];
   editorFocus: [value: string];
   editorInput: [value: string];
+  editorHtmlChanged: [html: string];
 }>();
 
 function handleInput() {
   emit('editorInput', text.value);
 }
+
+// angular 里变成了ZoneAwarePromise，state null，then、catch finally 都没反应.......
+// https://www.codingrequired.com/post/angular-zone-js-is-bad
+// async function handleSave(text: string, promise: Promise<string>): Promise<void> {
+//   try {
+//     console.log('handleSave generating HTML start ...');
+//     const html = await promise;
+//     console.log('handleSave generated HTML end ...');
+//     emit('editorSave', text, html);
+//   } catch (error) {
+//     console.error('handleSave Error generating HTML:', error);
+//   }
+// }
 
 function handleSave(text: string, promise: Promise<string>): void {
   emit('editorSave', text, promise);
@@ -51,6 +65,10 @@ function handleFocus() {
 
 function getEditorInstance() {
   return editorRef.value;
+}
+
+function handleHtmlChanged(html: string) {
+  emit('editorHtmlChanged', html);
 }
 
 defineExpose({

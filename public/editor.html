@@ -28,8 +28,13 @@
         const [text, promise] = e.detail;
         console.log(text);
         promise.then(html => {
-          console.log(html);
+          console.log('editorSave HTML:', html);
         });
+      });
+
+      editor.addEventListener('editorHtmlChanged', e => {
+        const [html] = e.detail;
+        console.log('editorHtmlChanged HTML:', html);
       });
 
       const instance = editor.getEditorInstance();
